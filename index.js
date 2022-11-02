@@ -2,6 +2,19 @@ const main = document.getElementById("location");
 const btnSubmit = document.getElementById("submitBtn");
 const cityInput = document.getElementById("cityInput");
 
+let article = document.createElement("article");
+article.classList.add(
+  "rounded",
+  "p-3",
+  "my-5",
+  "bg-slate-500",
+  "text-white",
+  "w-96",
+  "text-center",
+  "shadow-slate-800",
+  "shadow-sm"
+);
+
 const getGeolocation = () => {
   const success = (position) => {
     let coords = position.coords;
@@ -41,18 +54,6 @@ const apiFetch = (lat, lon) => {
       let country = info.sys["country"];
       let desc = info.weather[0].description;
       let tempCelsius = Math.round(info.main.temp);
-      let article = document.createElement("article");
-      article.classList.add(
-        "rounded",
-        "p-3",
-        "my-5",
-        "bg-slate-500",
-        "text-white",
-        "w-96",
-        "text-center",
-        "shadow-slate-800",
-        "shadow-sm"
-      );
       article.innerHTML = `<h2 class="text-2xl py-2">${city}, ${country}</h2>
                          <p class="py-1 text-lg font-bold">${tempCelsius}°C</p>
                          <p class="py-2 text-lg font-semibold">${upperCase(
@@ -72,22 +73,15 @@ const apiFetchCityName = (cityName) => {
       let country = info.sys["country"];
       let desc = info.weather[0].description;
       let tempCelsius = Math.round(info.main.temp);
-      let article = document.createElement("article");
-      article.classList.add(
-        "rounded",
-        "p-3",
-        "bg-slate-500",
-        "text-white",
-        "w-80",
-        "text-center",
-        "shadow-slate-800",
-        "shadow-sm"
-      );
       article.innerHTML = `<h2 class="text-2xl py-2">${city}, ${country}</h2>
                        <p class="py-1 text-lg font-bold">${tempCelsius}°C</p>
                        <p class="py-2 text-lg font-semibold">${upperCase(
                          desc
                        )}</p>`;
+      main.append(article);
+    })
+    .catch((err) => {
+      article.innerHTML = `<p>Ciudad o país no válidos."${cityName}".</p>`;
       main.append(article);
     });
 };
