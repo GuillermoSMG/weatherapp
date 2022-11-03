@@ -74,10 +74,10 @@ const apiFetchCityName = (cityName) => {
       let desc = info.weather[0].description;
       let tempCelsius = Math.round(info.main.temp);
       article.innerHTML = `<h2 class="text-2xl py-2">${city}, ${country}</h2>
-                       <p class="py-1 text-lg font-bold">${tempCelsius}°C</p>
-                       <p class="py-2 text-lg font-semibold">${upperCase(
-                         desc
-                       )}</p>`;
+                         <p class="py-1 text-lg font-bold">${tempCelsius}°C</p>
+                         <p class="py-2 text-lg font-semibold">${upperCase(
+                           desc
+                         )}</p>`;
       main.append(article);
     })
     .catch((err) => {
@@ -86,12 +86,20 @@ const apiFetchCityName = (cityName) => {
     });
 };
 
-/* document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   getGeolocation();
-}); */
+});
 
 btnSubmit.addEventListener("click", () => {
   let cityName = cityInput.value;
   cityInput.value = "";
   apiFetchCityName(cityName);
+});
+
+document.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    let cityName = cityInput.value;
+    cityInput.value = "";
+    apiFetchCityName(cityName);
+  }
 });
